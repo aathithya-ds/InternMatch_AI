@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>InternMatch AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div class="logo">
+            InternMatch AI
+        </div>
+
+        <div class="tagline">
+            AI-Powered Career & Internship Matching
+        </div>
+
+    </div>
+
+
+    <!-- HERO -->
+    <div class="hero">
+
+        <h1>Find Your Perfect Internship</h1>
+
+        <p>
+            Intelligent recommendations based on your
+            skills, interests and career goals.
+        </p>
+
+
+        <!-- STUDENT SELECTION -->
+        <div class="form-box">
+
+            <label for="student">
+                Select Student Profile
+            </label>
+
+            <select id="student"
+                    onchange="showStudentProfile()">
+
+                <option value="">
+                    Loading students...
+                </option>
+
+            </select>
+
+
+            <!-- PROFILE -->
+            <div id="profile"
+                 class="profile">
+
+            </div>
+
+
+            <button onclick="getRecommendations()">
+
+                ✨ Generate AI Recommendations
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+    <div id="loading"
+         class="loading">
+
+        🤖 AI is analyzing your profile...
+
+    </div>
+
+
+    <!-- RESULTS -->
+    <div id="results"
+         class="results">
+
+    </div>
+
+</div>
+
+
+<script>
+
+let students = [];
+
+
+/* -----------------------------------------
+   LOAD STUDENTS
+----------------------------------------- */
+
+async function loadStudents() {
+
+    try {
+
+        const response =
+            await fetch("/students");
+
+        students =
+            await response.json();
+
+        const select =
+            document.getElementById("student");
+
+        select.innerHTML = "";
+
+        students.forEach(student => {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                student.student_id;
+
+            option.textContent =
+                `${student.name} — ${student.student_id}`;
+
+            select.appendChild(option);
+
+        });
+
+        if (students.length > 0) {
+
+            select.value =
+                students[0].student_id;
+
+            showStudentProfile();
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("student").innerHTML =
+            `<option>Error loading students</option>`;
+
+    }
+
+}
+
+
+/* -----------------------------------------
+   SHOW STUDENT PROFILE
+----------------------------------------- */
+
+function showStudentProfile() {
+
+    const studentId =
+        document.getElementById("student").value;
+
+    const student =
+        students.find(
+            s => s.student_id === studentId
+        );
+
+    const profile =
+        document.getElementById("profile");
+
+    if (!student) {
+
+        profile.innerHTML = "";
+
+        return;
+
+    }
+
+    profile.innerHTML = `
+
+        <div class="profile-card">
+
+            <h3>
+                👤 ${student.name}
+            </h3>
+
+            <p>
+                <strong>Student ID:</strong>
+                ${student.student_id}
+            </p>
+
+            <p>
+                <strong>Domain:</strong>
+                ${student.domain}
+            </p>
+
+            <p>
+                <strong>Experience:</strong>
+                ${student.experience_level}
+            </p>
+
+            <p>
+                <strong>Career Goal:</strong>
+                ${student.career_goal}
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* -----------------------------------------
+   GENERATE RECOMMENDATIONS
+----------------------------------------- */
+
+async function getRecommendations() {
+
+    const studentId =
+        document.getElementById("student").value;
+
+    if (!studentId) {
+
+        alert("Please select a student.");
+
+        return;
+
+    }
+
+    const loading =
+        document.getElementById("loading");
+
+    const results =
+        document.getElementById("results");
+
+
+    loading.style.display =
+        "block";
+
+    results.innerHTML = "";
+
+
+    try {
+
+        const response =
+            await fetch("/recommend", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    student_id:
+                        studentId,
+
+                    top_n:
+                        5
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        loading.style.display =
+            "none";
+
+
+        if (
+            !data.recommendations ||
+            data.recommendations.length === 0
+        ) {
+
+            results.innerHTML = `
+                <div class="card">
+                    <h2>No recommendations found</h2>
+                    <p>
+                        Try another student profile.
+                    </p>
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        data.recommendations.forEach(
+            (item, index) => {
+
+                const matched =
+                    item.matched_skills.length > 0
+                    ? item.matched_skills.join(", ")
+                    : "None";
+
+
+                const missing =
+                    item.missing_skills.length > 0
+                    ? item.missing_skills.join(", ")
+                    : "None";
+
+
+                results.innerHTML += `
+
+                    <div class="card">
+
+                        <div class="rank">
+                            #${index + 1}
+                        </div>
+
+                        <h2>
+                            ${item.title}
+                        </h2>
+
+                        <h3>
+                            ${item.company}
+                        </h3>
+
+
+                        <div class="score">
+
+                            ${item.match_score}%
+                            AI Match
+
+                        </div>
+
+
+                        <p>
+                            <strong>Domain:</strong>
+                            ${item.domain}
+                        </p>
+
+                        <p>
+                            <strong>Experience:</strong>
+                            ${item.experience_level}
+                        </p>
+
+                        <p>
+                            <strong>Duration:</strong>
+                            ${item.duration}
+                        </p>
+
+                        <p>
+                            <strong>Work Mode:</strong>
+                            ${item.work_mode}
+                        </p>
+
+                        <p>
+                            <strong>Stipend:</strong>
+                            ₹${item.stipend}
+                        </p>
+
+
+                        <div class="skills">
+
+                            <p>
+                                <strong>
+                                    ✓ Matched Skills:
+                                </strong>
+
+                                ${matched}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    ⚡ Skill Gap:
+                                </strong>
+
+                                ${missing}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Skill Match:
+                                </strong>
+
+                                ${item.skill_match}%
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+    } catch (error) {
+
+        loading.style.display =
+            "none";
+
+        results.innerHTML = `
+
+            <div class="card">
+
+                <h2>
+                    ⚠️ Something went wrong
+                </h2>
+
+                <p>
+                    Please check whether the
+                    Flask server is running.
+                </p>
+
+            </div>
+
+        `;
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* -----------------------------------------
+   START APPLICATION
+----------------------------------------- */
+
+loadStudents();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+internship_id,title,company,required_skills,domain,experience_level,duration,work_mode,stipend
+I001,AI & Machine Learning Intern,TechNova Labs,"Python|Machine Learning|Scikit-learn|Pandas",AI & ML,Intermediate,3 Months,Remote,8000
+I002,Data Science Intern,DataSphere Analytics,"Python|Pandas|NumPy|Statistics",Data Science,Intermediate,6 Months,Hybrid,10000
+I003,Data Analyst Intern,InsightWorks,"SQL|Excel|Power BI|Python",Data Analytics,Beginner,3 Months,Remote,6000
+I004,Deep Learning Intern,NeuralEdge AI,"Python|TensorFlow|Keras|Deep Learning",AI & ML,Advanced,6 Months,Remote,12000
+I005,Computer Vision Intern,VisionCraft,"Python|OpenCV|YOLO|Computer Vision",AI & ML,Advanced,6 Months,Hybrid,11000
+I006,NLP & Generative AI Intern,LanguageLabs,"Python|NLP|NLTK|Transformers",AI & ML,Intermediate,4 Months,Remote,10000
+I007,Python Developer Intern,CodeForge,"Python|Django|REST API|Git",Backend Development,Beginner,3 Months,Remote,7000
+I008,Backend Developer Intern,ServerStack,"Python|FastAPI|PostgreSQL|Docker",Backend Development,Intermediate,6 Months,Hybrid,10000
+I009,Java Developer Intern,EnterpriseSoft,"Java|Spring Boot|SQL|Git",Java Development,Intermediate,6 Months,On-site,9000
+I010,Full Stack Developer Intern,WebSphere,"JavaScript|React|Node.js|MongoDB",Web Development,Intermediate,6 Months,Hybrid,9000
+I011,Frontend Developer Intern,PixelWorks,"HTML|CSS|JavaScript|React",Web Development,Beginner,3 Months,Remote,5000
+I012,Cloud Engineering Intern,CloudMatrix,"AWS|Linux|Docker|Networking",Cloud Computing,Intermediate,6 Months,Remote,10000
+I013,DevOps Engineering Intern,DeployX,"AWS|Docker|Kubernetes|Jenkins",DevOps,Advanced,6 Months,Hybrid,12000
+I014,Cloud Security Intern,SecureCloud,"AWS|Linux|Cybersecurity|Networking",Cybersecurity,Intermediate,4 Months,Remote,9000
+I015,Android Development Intern,MobileFirst,"Java|Android|Kotlin|Firebase",Mobile Development,Beginner,3 Months,On-site,6000
+I016,IoT Engineering Intern,SmartGrid Labs,"Python|Arduino|IoT|Embedded C",IoT & Embedded,Intermediate,4 Months,Hybrid,7000
+I017,Embedded Systems Intern,CircuitCore,"C|C++|Embedded C|Microcontrollers",IoT & Embedded,Intermediate,6 Months,On-site,8000
+I018,Automation Testing Intern,QualitySphere,"Python|Selenium|Java|Testing",Software Testing,Intermediate,3 Months,Remote,6000
+I019,RPA Developer Intern,AutoFlow,"UiPath|Python|Excel|RPA",RPA & Automation,Intermediate,4 Months,Hybrid,8000
+I020,Big Data Engineering Intern,DataStream,"Python|Spark|Hadoop|SQL",Big Data,Advanced,6 Months,Remote,11000
+I021,Data Engineering Intern,PipelineWorks,"Python|SQL|Spark|ETL",Data Engineering,Advanced,6 Months,Hybrid,11000
+I022,Cybersecurity Analyst Intern,CyberShield,"Cybersecurity|Linux|Networking|Python",Cybersecurity,Intermediate,6 Months,On-site,9000
+I023,Ethical Hacking Intern,SecureNet,"Cybersecurity|Linux|Networking|Security",Cybersecurity,Intermediate,4 Months,Remote,8000
+I024,AI Research Intern,FutureMind,"Python|Machine Learning|Deep Learning|Research",AI & ML,Advanced,6 Months,Remote,13000
+I025,ML Operations Intern,ModelOps,"Python|Docker|AWS|Machine Learning",MLOps,Advanced,6 Months,Hybrid,12000
+I026,Business Intelligence Intern,BIWorks,"SQL|Power BI|Tableau|Excel",Data Analytics,Beginner,3 Months,Remote,6000
+I027,Data Visualization Intern,VisualData,"Python|Matplotlib|Tableau|Power BI",Data Analytics,Beginner,3 Months,Remote,5500
+I028,Software Engineering Intern,DevCore,"Java|Python|Git|SQL",Software Development,Intermediate,6 Months,Hybrid,8500
+I029,AI Product Engineering Intern,InnovateAI,"Python|FastAPI|Machine Learning|Docker",AI & ML,Intermediate,6 Months,Remote,11000
+I030,Research Data Science Intern,ResearchHub,"Python|Statistics|Machine Learning|Pandas",Data Science,Advanced,6 Months,Remote,12000
